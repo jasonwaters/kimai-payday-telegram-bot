@@ -1,4 +1,13 @@
 const dayjs = require("dayjs");
+const { workers = [] } = require("../workers.json");
+
+const workerMap = workers.reduce((mapping, worker) => {
+  const { kimaiId } = worker;
+  mapping[kimaiId] = worker;
+  return mapping;
+}, {});
+
+const getWorker = (kimaiId) => workerMap[kimaiId];
 
 function getPriorPayPeriod(period) {
   const { start, end } = period;
@@ -24,6 +33,7 @@ function summarizeTimesheetEntries(entrees = []) {
 }
 
 module.exports = {
+  getWorker,
   getPriorPayPeriod,
   getCurrentPayPeriod,
   summarizeTimesheetEntries,

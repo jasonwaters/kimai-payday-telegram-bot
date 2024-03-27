@@ -5,14 +5,14 @@ const DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss";
 module.exports = (kimaiBaseUrl, kimaiAuthUser, kimaiAuthToken) => {
   const API_ENDPOINT = `${kimaiBaseUrl}/api`;
 
-  function getTimesheetLink(user, { start, end }) {
+  function getTimesheetLink(workerId, { start, end }) {
     const daterange = [
       start.format("M/D/YYYY"),
       "+-+",
       end.format("M/D/YYYY"),
     ].join("");
 
-    return `${kimaiBaseUrl}/en/team/timesheet/?daterange=${daterange}&${encodeURIComponent("users[]")}=${user.id}&orderBy=begin&order=ASC`;
+    return `${kimaiBaseUrl}/en/team/timesheet/?daterange=${daterange}&${encodeURIComponent("users[]")}=${workerId}&orderBy=begin&order=ASC`;
   }
 
   async function request(fragment, params, postProcess = (res) => res.json()) {
@@ -62,7 +62,12 @@ module.exports = (kimaiBaseUrl, kimaiAuthUser, kimaiAuthToken) => {
     });
   }
 
+  async function getUsers() {
+    return request("users", {});
+  }
+
   return {
+    getUsers,
     getTimesheetEntries,
     getTimesheetLink,
   };
