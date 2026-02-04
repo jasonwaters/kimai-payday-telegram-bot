@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  kimai-payday:
+    image: ghcr.io/jasonwaters/kimai-payday-telegram-bot:latest
+    container_name: kimai-payday-telegram-bot
+    volumes:
+      # Mount your config files
+      - ./config/.env:/app/.env:ro
+      - ./config/workers.json:/app/workers.json:ro
+    restart: "no"
+    profiles: ["manual"]  # Exclude from 'docker-compose up'
+
+# Usage:
+# docker-compose run --rm kimai-payday
+#
+# Or with -f flag from anywhere:
+# docker-compose -f /path/to/docker-compose.yml run --rm kimai-payday
+#
+# Schedule with cron or Task Scheduler:
+# 0 9 * * 0  docker-compose -f /volume1/docker/docker-compose.yml run --rm kimai-payday

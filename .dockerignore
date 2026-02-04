@@ -1,0 +1,40 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+
+# Config files (will be mounted as volumes)
+.env
+workers.json
+
+# Templates (keep in image for reference)
+# .env_template
+# workers_template.json
+
+# Documentation
+README.md
+
+# CI/CD
+.github/
+
+# Testing
+coverage/
+.nyc_output/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+.editorconfig
